@@ -54,10 +54,9 @@ except Exception as e:
     print(f"ОШИБКА TELEGRAM: {e}")
 
 # 1. Выбираем случайный ресторан и отправляем в чат
-bot.send_messages(
   chosen_rest= random.choice(RESTS)
   bot.send_message(CHAT_ID, f"Сегодня хороший день для обеда. Я уже выбрал место:\n{chosen_rest}")
-)
+
 # 2. Отправляем опрос
 POLL_OPTIONS = random.choice(POLL_POLL_OPTIONS)
 bot.send_poll(
