@@ -1,0 +1,29 @@
+name: Daily Lunch Bot
+
+on:
+  schedule:
+    # Формат: 'минуты часы * * дни_недели' по времени UTC (МСК/СПб минус 3 часа)
+    # Сейчас стоит '0 9 * * 1-5' — это ровно 12:00 по МСК/СПб с понедельника по пятницу
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyTelegramBotAPI
+
+      - name: Run bot script
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot.py
