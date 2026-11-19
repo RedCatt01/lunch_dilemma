@@ -17,6 +17,16 @@ RESTS = [
     'Чуфаня🥡'
 ]
 
+# Пул для сообщения
+MESS = [
+    'Сегодня хороший день для обеда. Я уже выбрал место:',
+    'Какой чудесный день! Какой чудесный пень! Какой чудесный я и место для обеда!',
+    'Работа работой, а обед по расписанию!',
+    'Работа не волк, волк - это ходить на обед.',
+    'Чтобы мощность голода не превышала паспортных значений, необходимо уменьшить потери каллорий.',
+    'Объявляю сБОУр на обед!'
+]
+
 # Настройки опроса
 POLL_QUESTION = "Обед в 14?"
 POLL_OPTIONS_1 = ["Я", "Не я"]
@@ -40,21 +50,10 @@ IS_ANONYMOUS = False  # False — видно, кто как проголосов
 
 bot = telebot.TeleBot(TOKEN)
 
-me = bot.get_me()
-print(f"--- ДИАГНОСТИКА ---")
-print(f"Бот подключен: @{me.username} (ID: {me.id})")
-print(f"Попытка отправки на CHAT_ID: {CHAT_ID}")
-
-try:
-    # 2. Проверяем, что это за чат с точки зрения Telegram
-    chat_info = bot.get_chat(CHAT_ID)
-    print(f"Telegram подтвердил чат! Название: '{chat_info.title}', Тип: {chat_info.type}")
-except Exception as e:
-    print(f"ОШИБКА TELEGRAM: {e}")
-
 # 1. Выбираем случайный ресторан и отправляем в чат
 chosen_rest= random.choice(RESTS)
-bot.send_message(CHAT_ID, f"Сегодня хороший день для обеда. Я уже выбрал место:\n{chosen_rest}")
+chosen_mess= random.choice(MESS)
+bot.send_message(CHAT_ID, f"{chosen_mess}\n{chosen_rest}")
 
 # 2. Отправляем опрос
 POLL_OPTIONS = random.choice(POLL_POLL_OPTIONS)
